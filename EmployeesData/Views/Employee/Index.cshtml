@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+@model IEnumerable<Employee>
+
+
+
+
+<div class="row">
+    <div class="col-10">
+        <h4> Employee Details </h4>
+    </div>
+    <div class="col-2">
+        <a asp-controller="Employee" asp-action="Create" class="btn btn-primary"> Add new Employee </a>
+    </div>
+</div>
+
+
+<form asp-action="index" method="get">
+    <div class="row">
+        <div class="col-12">
+            Search :   <input type="text" name="searchText" value="@ViewData["currentSearch"]" />
+            <input type="submit" class="btn btn-primary" value="Search" />
+        </div>
+    </div>
+</form>
+
+
+<div class="row">
+    <div class="col-12">
+        <table class="table table-bordered table-striped" style="width: 100%" id="table">
+            <thead>
+                <tr>
+                    <th> Employee Id </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSort"]">Name</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["DesignationSort"]">Designation</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["DepartmentIdSort"]">Department Id</a>
+                    </th>
+                    <th> Hire Data </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var emp in Model)
+                {
+                    <tr>
+                        <td> @emp.Id  </td>
+                        <td> @emp.Name </td>
+                        <td> @emp.Designation </td>
+                        <td> @emp.DepartmentId </td>
+                        <td> @emp.HireDate </td>
+                        <td>
+                            <a asp-action="Update" asp-route-id="@emp.Id" class="btn btn-primary"> Update </a>
+                        </td>
+                        <td>
+                            <a asp-action="Delete" asp-route-id="@emp.Id" class="btn btn-primary" onclick="return confirm('Are you sure to delete the customer')"> Delete </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
